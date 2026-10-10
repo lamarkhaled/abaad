@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أبعاد العقارية | مساحات تلهم حياتك</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            300: '#E6CC80',
+                            400: '#D4AF37',
+                            500: '#C5A059',
+                            600: '#B38B40',
+                        },
+                        dark: {
+                            900: '#050505',
+                            800: '#111111',
+                            700: '#1a1a1a',
+                            600: '#222222',
+                        }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            overflow-x: hidden;
+            background-color: #050505; /* Default dark background */
+        }
+
+        /* Glassmorphism Utilities - Dark Theme */
+        .glass-dark {
+            background: rgba(17, 17, 17, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Premium Dark Cards */
+        .premium-card {
+            background: #111111;
+            border: 1px solid #222222;
+            transition: all 0.4s ease;
+        }
+
+        .premium-card:hover {
+            border-color: #C5A059;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px -10px rgba(197, 160, 89, 0.15);
+        }
+
+        /* Text Gradients */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #E6CC80 0%, #C5A059 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C5A059; 
+        }
+
+        /* Image Hover Zoom */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.6s ease;
+        }
+        .group:hover .img-zoom {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold-500 selection:text-white">
+
+    <!-- Navbar: PURE WHITE BACKGROUND -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white border-b border-gray-200 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-32 md:h-36"> <!-- Increased height for larger logo -->
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#">
+                        <img class="h-24 md:h-28 w-auto object-contain" src="https://files.catbox.moe/9ih76f.png" alt="أبعاد العقارية">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 space-x-reverse items-center">
+                    <a href="#" class="text-gray-900 hover:text-gold-500 transition-colors font-bold text-lg">الرئيسية</a>
+                    <a href="#properties" class="text-gray-900 hover:text-gold-500 transition-colors font-bold text-lg">العقارات</a>
+                    <a href="#services" class="text-gray-900 hover:text-gold-500 transition-colors font-bold text-lg">خدماتنا</a>
+                    <a href="#about" class="text-gray-900 hover:text-gold-500 transition-colors font-bold text-lg">من نحن</a>
+                    
+                    <a href="#contact" class="bg-dark-900 hover:bg-gold-500 text-white px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105 shadow-md">
+                        تواصل معنا
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-dark-900 hover:text-gold-500 focus:outline-none">
+                        <i class="fas fa-bars text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#" class="block px-3 py-3 text-gray-900 hover:text-gold-500 font-bold text-lg border-b border-gray-100">الرئيسية</a>
+                <a href="#properties" class="block px-3 py-3 text-gray-900 hover:text-gold-500 font-bold text-lg border-b border-gray-100">العقارات</a>
+                <a href="#services" class="block px-3 py-3 text-gray-900 hover:text-gold-500 font-bold text-lg border-b border-gray-100">خدماتنا</a>
+                <a href="#contact" class="block px-3 py-3 mt-4 bg-dark-900 hover:bg-gold-500 text-white rounded-full font-bold transition-colors">تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: BLACK BACKGROUND -->
+    <section class="relative min-h-screen flex items-center justify-center bg-dark-900 bg-hero-pattern bg-cover bg-center bg-no-repeat pt-32">
+        <!-- Heavy dark overlay for premium feel -->
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-900/95 via-dark-900/80 to-dark-900/95"></div>
+        
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-10">
+            <span class="inline-block py-1 px-4 rounded-full border border-gold-500/30 text-gold-500 text-sm font-semibold mb-6 tracking-wider bg-gold-500/10">
+                الوجهة الأولى للعقارات الفاخرة
+            </span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+                نصنع <span class="text-gradient-gold">أبعاداً جديدة</span><br> لحياتك
+            </h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 font-light">
+                استكشف أرقى العقارات، الفلل الفاخرة، والشقق الذكية المصممة لتلبي تطلعاتك وترتقي بأسلوب حياتك.
+            </p>
+
+            <!-- Glassmorphism Search Bar (Dark) -->
+            <div class="glass-dark max-w-4xl mx-auto rounded-2xl p-4 md:p-6">
+                <form class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1 relative">
+                        <i class="fas fa-map-marker-alt absolute right-4 top-1/2 transform -translate-y-1/2 text-gold-500"></i>
+                        <input type="text" placeholder="المدينة، الحي..." class="w-full bg-dark-800 text-white placeholder-gray-500 border border-dark-600 rounded-xl py-3 pr-12 pl-4 focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all shadow-sm">
+                    </div>
+                    <div class="flex-1 relative">
+                        <i class="fas fa-home absolute right-4 top-1/2 transform -translate-y-1/2 text-gold-500"></i>
+                        <select class="w-full bg-dark-800 text-white border border-dark-600 rounded-xl py-3 pr-12 pl-4 appearance-none focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all shadow-sm cursor-pointer">
+                            <option value="">نوع العقار</option>
+                            <option value="villa">فيلا</option>
+                            <option value="apartment">شقة</option>
+                            <option value="office">مكتب</option>
+                        </select>
+                    </div>
+                    <div class="flex-1 relative hidden md:block">
+                        <i class="fas fa-tags absolute right-4 top-1/2 transform -translate-y-1/2 text-gold-500"></i>
+                        <select class="w-full bg-dark-800 text-white border border-dark-600 rounded-xl py-3 pr-12 pl-4 appearance-none focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all shadow-sm cursor-pointer">
+                            <option value="">نطاق السعر</option>
+                            <option value="1">أقل من 1 مليون</option>
+                            <option value="2">1 - 3 مليون</option>
+                            <option value="3">أكثر من 3 مليون</option>
+                        </select>
+                    </div>
+                    <button type="button" class="bg-gold-500 hover:bg-gold-600 text-dark-900 font-extrabold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md">
+                        <i class="fas fa-search"></i>
+                        <span>بحث</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section: WHITE BACKGROUND -->
+    <section class="py-16 bg-white border-b border-gray-200 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="space-y-2">
+                        <h3 class="text-4xl md:text-5xl font-black text-gold-500">+٥٠٠</h3>
+                        <p class="text-dark-900 font-bold text-lg">عقار مباع</p>
+                    </div>
+                    <div class="space-y-2 border-r border-gray-100 hidden md:block"></div>
+                    <div class="space-y-2">
+                        <h3 class="text-4xl md:text-5xl font-black text-gold-500">٩٨٪</h3>
+                        <p class="text-dark-900 font-bold text-lg">عملاء راضون</p>
+                    </div>
+                    <div class="space-y-2 border-r border-gray-100 hidden md:block"></div>
+                    <div class="space-y-2">
+                        <h3 class="text-4xl md:text-5xl font-black text-gold-500">+١٠</h3>
+                        <p class="text-dark-900 font-bold text-lg">سنوات خبرة</p>
+                    </div>
+                    <div class="space-y-2 border-r border-gray-100 hidden md:block"></div>
+                    <div class="space-y-2">
+                        <h3 class="text-4xl md:text-5xl font-black text-gold-500">+٥٠</h3>
+                        <p class="text-dark-900 font-bold text-lg">شريك نجاح</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section: BLACK BACKGROUND -->
+    <section id="properties" class="py-24 bg-dark-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">عقارات <span class="text-gradient-gold">مميزة</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">انتقينا لك بعناية مجموعة من أفضل العقارات التي تعكس الفخامة وتلبي كافة احتياجاتك العصرية.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Property Card 1 -->
+                <div class="premium-card rounded-2xl overflow-hidden group cursor-pointer">
+                    <div class="relative h-64 img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1613490908578-f754fc3487c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="فيلا مودرن زاوية" class="w-full h-full object-cover img-zoom">
+                        <div class="absolute top-4 right-4 bg-gold-500 text-dark-900 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg">
+                            للبيع
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-gold-500 font-bold mb-2 text-xl">٣,٥٠٠,٠٠٠ ر.س</div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-500 transition-colors">فيلا مودرن زاوية</h3>
+                        <p class="text-gray-400 text-sm mb-4"><i class="fas fa-map-marker-alt ml-1 text-gray-500"></i> حي الملقا، الرياض</p>
+                        
+                        <div class="flex justify-between items-center pt-4 border-t border-dark-700 text-gray-300 text-sm font-medium">
+                            <span title="غرف النوم" class="flex items-center gap-2"><i class="fas fa-bed text-gold-500"></i> ٥</span>
+                            <span title="دورات المياه" class="flex items-center gap-2"><i class="fas fa-bath text-gold-500"></i> ٦</span>
+                            <span title="المساحة" class="flex items-center gap-2"><i class="fas fa-vector-square text-gold-500"></i> ٤٥٠ م²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Card 2 -->
+                <div class="premium-card rounded-2xl overflow-hidden group cursor-pointer">
+                    <div class="relative h-64 img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="شقة ذكية" class="w-full h-full object-cover img-zoom">
+                        <div class="absolute top-4 right-4 bg-white text-dark-900 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg">
+                            للإيجار
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-gold-500 font-bold mb-2 text-xl">٨٥,٠٠٠ ر.س / سنوياً</div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-500 transition-colors">شقة ذكية فاخرة</h3>
+                        <p class="text-gray-400 text-sm mb-4"><i class="fas fa-map-marker-alt ml-1 text-gray-500"></i> حي النرجس، الرياض</p>
+                        
+                        <div class="flex justify-between items-center pt-4 border-t border-dark-700 text-gray-300 text-sm font-medium">
+                            <span title="غرف النوم" class="flex items-center gap-2"><i class="fas fa-bed text-gold-500"></i> ٣</span>
+                            <span title="دورات المياه" class="flex items-center gap-2"><i class="fas fa-bath text-gold-500"></i> ٤</span>
+                            <span title="المساحة" class="flex items-center gap-2"><i class="fas fa-vector-square text-gold-500"></i> ١٨٠ م²</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Card 3 -->
+                <div class="premium-card rounded-2xl overflow-hidden group cursor-pointer">
+                    <div class="relative h-64 img-zoom-container">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="مساحة مكتبية بانورامية" class="w-full h-full object-cover img-zoom">
+                        <div class="absolute top-4 right-4 bg-gold-500 text-dark-900 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-lg">
+                            للبيع
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-gold-500 font-bold mb-2 text-xl">٢,٢٠٠,٠٠٠ ر.س</div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-500 transition-colors">مساحة مكتبية بانورامية</h3>
+                        <p class="text-gray-400 text-sm mb-4"><i class="fas fa-map-marker-alt ml-1 text-gray-500"></i> مركز الملك عبدالله المالي</p>
+                        
+                        <div class="flex justify-between items-center pt-4 border-t border-dark-700 text-gray-300 text-sm font-medium">
+                            <span title="المكاتب" class="flex items-center gap-2"><i class="fas fa-door-open text-gold-500"></i> ٤</span>
+                            <span title="مواقف" class="flex items-center gap-2"><i class="fas fa-car text-gold-500"></i> ٣</span>
+                            <span title="المساحة" class="flex items-center gap-2"><i class="fas fa-vector-square text-gold-500"></i> ٢٢٠ م²</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center gap-3 text-gold-500 hover:text-dark-900 border-2 border-gold-500 hover:bg-gold-500 px-8 py-3 rounded-full font-bold transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.2)] hover:shadow-[0_0_25px_rgba(197,160,89,0.5)]">
+                    عرض كل العقارات
+                    <i class="fas fa-arrow-left text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section: WHITE BACKGROUND -->
+    <section id="services" class="py-24 bg-white border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-dark-900 mb-4">خدماتنا <span class="text-gradient-gold">العقارية</span></h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">نقدم حلولاً عقارية متكاملة بخبرة احترافية لضمان نجاح استثماراتك وراحتك.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-10 rounded-3xl text-center group hover:-translate-y-2 transition-all duration-300 border border-gray-200 hover:border-gold-500 hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.2)]">
+                    <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300 shadow-md">
+                        <i class="fas fa-handshake text-3xl text-gold-500 group-hover:text-dark-900 transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark-900 mb-4">الوساطة العقارية</h3>
+                    <p class="text-gray-600 leading-relaxed font-medium">نربط بين البائع والمشتري بشفافية واحترافية عالية لضمان أفضل الصفقات العقارية بأفضل الأسعار.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-10 rounded-3xl text-center group hover:-translate-y-2 transition-all duration-300 border border-gray-200 hover:border-gold-500 hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.2)]">
+                    <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300 shadow-md">
+                        <i class="fas fa-building text-3xl text-gold-500 group-hover:text-dark-900 transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark-900 mb-4">إدارة الأملاك</h3>
+                    <p class="text-gray-600 leading-relaxed font-medium">نهتم بعقارك كما لو كان عقارنا، من تحصيل الإيجارات إلى الصيانة الدورية ومتابعة المستأجرين.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-10 rounded-3xl text-center group hover:-translate-y-2 transition-all duration-300 border border-gray-200 hover:border-gold-500 hover:shadow-[0_20px_40px_-15px_rgba(197,160,89,0.2)]">
+                    <div class="w-20 h-20 mx-auto bg-dark-900 rounded-full flex items-center justify-center mb-6 group-hover:bg-gold-500 transition-colors duration-300 shadow-md">
+                        <i class="fas fa-chart-line text-3xl text-gold-500 group-hover:text-dark-900 transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark-900 mb-4">الاستشارات العقارية</h3>
+                    <p class="text-gray-600 leading-relaxed font-medium">نقدم دراسات جدوى وتحليلات للسوق العقاري لمساعدتك في اتخاذ قرارات استثمارية صائبة ومربحة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section: BLACK BACKGROUND -->
+    <section class="py-24 bg-dark-900 relative overflow-hidden">
+        <!-- Decorative bg glow -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-gold-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">ماذا يقول <span class="text-gradient-gold">عملاؤنا</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-dark-800 p-8 rounded-3xl relative shadow-2xl border border-dark-700 hover:border-gold-500/50 transition-colors">
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-5xl text-dark-700"></i>
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-14 h-14 rounded-full bg-dark-900 border border-gold-500/30 flex items-center justify-center text-gold-500 text-2xl">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">عبدالله السالم</h4>
+                            <div class="text-gold-500 text-xs mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed text-lg relative z-10 font-light">
+                        "أفضل تجربة عقارية خضتها، فريق أبعاد محترف جداً وساعدوني في العثور على فيلا أحلامي بوقت قياسي وبسعر ممتاز. شكراً لجهودكم الجبارة."
+                    </p>
+                </div>
+
+                <div class="bg-dark-800 p-8 rounded-3xl relative shadow-2xl border border-dark-700 hover:border-gold-500/50 transition-colors">
+                    <i class="fas fa-quote-right absolute top-8 right-8 text-5xl text-dark-700"></i>
+                    <div class="flex items-center gap-4 mb-6 relative z-10">
+                        <div class="w-14 h-14 rounded-full bg-dark-900 border border-gold-500/30 flex items-center justify-center text-gold-500 text-2xl">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-lg">سارة الخالدي</h4>
+                            <div class="text-gold-500 text-xs mt-1">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed text-lg relative z-10 font-light">
+                        "تعامل راقي وشفافية مطلقة في إدارة أملاكي. منذ أن استلمت أبعاد العقارية إدارة مبناي السكني وأنا أشعر براحة بال تامة. أنصح بهم وبشدة."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer: PURE WHITE BACKGROUND -->
+    <footer id="contact" class="bg-white border-t border-gray-200 pt-20 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Brand & Logo -->
+                <div class="space-y-6 flex flex-col items-start">
+                    <!-- Very large logo as requested -->
+                    <img src="https://files.catbox.moe/9ih76f.png" alt="أبعاد العقارية" class="h-32 md:h-40 object-contain -mr-4">
+                    <p class="text-gray-600 text-sm leading-relaxed font-medium">
+                        نصنع أبعاداً جديدة لحياتك من خلال تقديم أرقى العقارات والخدمات العقارية المتكاملة في المملكة العربية السعودية.
+                    </p>
+                    <div class="flex space-x-4 space-x-reverse">
+                        <a href="#" class="w-12 h-12 rounded-full bg-dark-900 flex items-center justify-center text-white hover:bg-gold-500 transition-all shadow-md">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-dark-900 flex items-center justify-center text-white hover:bg-gold-500 transition-all shadow-md">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-dark-900 flex items-center justify-center text-white hover:bg-gold-500 transition-all shadow-md">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-dark-900 font-black text-xl mb-6 border-b-2 border-gold-500 pb-2 inline-block">روابط سريعة</h4>
+                    <ul class="space-y-4 text-gray-700 font-bold">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> الرئيسية</a></li>
+                        <li><a href="#properties" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> العقارات المميزة</a></li>
+                        <li><a href="#services" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> خدماتنا</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> عن الشركة</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> الأسئلة الشائعة</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-dark-900 font-black text-xl mb-6 border-b-2 border-gold-500 pb-2 inline-block">خدماتنا</h4>
+                    <ul class="space-y-4 text-gray-700 font-bold">
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> بيع وشراء العقارات</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> إدارة الأملاك</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> التقييم العقاري</a></li>
+                        <li><a href="#" class="hover:text-gold-500 transition-colors flex items-center gap-2"><i class="fas fa-chevron-left text-xs text-gold-500"></i> التسويق العقاري</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-dark-900 font-black text-xl mb-6 border-b-2 border-gold-500 pb-2 inline-block">معلومات التواصل</h4>
+                    <ul class="space-y-5 text-gray-700 font-bold">
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-dark-900 flex items-center justify-center text-gold-500 flex-shrink-0 mt-1">
+                                <i class="fas fa-map-marker-alt text-sm"></i>
+                            </div>
+                            <span>طريق الملك فهد، حي الملقا،<br>الرياض، المملكة العربية السعودية</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-dark-900 flex items-center justify-center text-gold-500 flex-shrink-0">
+                                <i class="fas fa-phone text-sm"></i>
+                            </div>
+                            <span dir="ltr">+966 50 123 4567</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-dark-900 flex items-center justify-center text-gold-500 flex-shrink-0">
+                                <i class="fas fa-envelope text-sm"></i>
+                            </div>
+                            <span>info@abaad.sa</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-gray-200 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-bold text-gray-500">
+                <p>&copy; 2026 أبعاد العقارية. جميع الحقوق محفوظة.</p>
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="#" class="hover:text-gold-500 transition-colors">الشروط والأحكام</a>
+                    <span>|</span>
+                    <a href="#" class="hover:text-gold-500 transition-colors">سياسة الخصوصية</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                menu.classList.add('hidden'); // Close mobile menu if open
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
